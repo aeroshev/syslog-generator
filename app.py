@@ -34,14 +34,18 @@ class GeneratorLogs:
                 delta = timedelta(hours=1)
                 for i in range(COUNT_LINES):
                     now += delta
-                    log.write(cls.log_format.format(
-                        timestamp=now.strftime("%Y-%m-%d %H:%M:%S"),
-                        device=random.choice(devices),
-                        facility=random.randrange(24),
-                        level=random.randrange(8),
-                        number=i,
-                        message=fake.sentence(nb_words=10)
-                    ))
+                    event = random.randint(0, 10)
+                    if event < 2:
+                        log.write("Error while writing in log\n")
+                    else:
+                        log.write(cls.log_format.format(
+                            timestamp=now.strftime("%Y-%m-%d %H:%M:%S"),
+                            device=random.choice(devices),
+                            facility=random.randrange(24),
+                            level=random.randrange(8),
+                            number=i,
+                            message=fake.sentence(nb_words=10)
+                        ))
 
 
 if __name__ == "__main__":
